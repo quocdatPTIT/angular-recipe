@@ -1,19 +1,23 @@
-import { ActivatedRoute, Params } from '@angular/router';
-import {Component, OnInit, Input} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 
-import {Recipe} from '../recipe.model';
+import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipes-detail',
   templateUrl: './recipes-detail.component.html',
-  styleUrls: ['./recipes-detail.component.css'],
+  styleUrls: ['./recipes-detail.component.css']
 })
 export class RecipesDetailComponent implements OnInit {
   // @Input() recipeDetail: Recipe;
   recipeDetail: Recipe;
   id: number;
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
+  constructor(
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     // let id = parseInt(this.route.snapshot.params.id, 10);
@@ -26,17 +30,20 @@ export class RecipesDetailComponent implements OnInit {
     // );
     // console.log(id);
     // console.log(this.recipeDetail);
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.id = +params.id;
-        this.recipeDetail = this.recipeService.getRecipe(this.id);
-      }
-    );
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params.id;
+      this.recipeDetail = this.recipeService.getRecipe(this.id);
+    });
   }
 
-  // onToShoppingList() {
-  //   const recipeSelected = this.recipeDetail;
-  //   this.recipeService.addRecipeToShoppingList(recipeSelected.ingredients);
-  //   console.log(recipeSelected);
-  // }
+  onToShoppingList() {
+    const recipeSelected = this.recipeDetail;
+    this.recipeService.addRecipeToShoppingList(recipeSelected.ingredients);
+    console.log(recipeSelected);
+  }
+
+  onEditRecipe() {
+    console.log(this.route);
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
 }
