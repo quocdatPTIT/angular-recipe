@@ -1,5 +1,4 @@
 import {
-  EventEmitter,
   Injectable
 } from '@angular/core';
 
@@ -15,7 +14,6 @@ import {
 
 @Injectable()
 export class RecipeService {
-  recipeSelected = new EventEmitter < Recipe > ();
   recipes: Recipe[] = [
     new Recipe(
       1,
