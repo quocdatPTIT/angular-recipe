@@ -49,4 +49,12 @@ export class ShoppingListService {
     this.ingredients[index] = newIngredient;
     this.ingredientChanged.next(this.getIngredients());
   }
+  /**
+   * delete ingredient at index
+   * @param index ingredient in array
+   */
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+    this.ingredientChanged.next(this.getIngredients());
+  }
 }
